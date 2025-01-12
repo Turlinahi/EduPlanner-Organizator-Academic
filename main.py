@@ -1,7 +1,7 @@
 import datetime
 from ttkbootstrap import Style
 from ttkbootstrap.widgets import Frame, Notebook, Progressbar, Label, Button, Entry
-from tkinter import StringVar, OptionMenu, messagebox
+from tkinter import Tk
 from database import init_db, get_tasks_by_date
 from task_manager import add_task_ui, update_task_list_ui
 from schedule_manager import add_schedule_ui, add_calendar_ui
@@ -49,6 +49,8 @@ tabs.add(tasks_tab, text="Sarcini")
 schedule_tab = Frame(tabs)
 tabs.add(schedule_tab, text="Orar")
 
+add_calendar_ui(schedule_tab)  # Function to add calendar integration
+
 # Task Management Section
 main_frame = Frame(tasks_tab, padding=10)
 main_frame.pack(fill="both", expand=True)
@@ -60,7 +62,6 @@ date_label.pack(anchor="center", pady=10)
 # Task List (Initialize before passing to add_task_ui)
 task_list_frame = Frame(main_frame)
 task_list_frame.pack(fill="both", expand=True)
-
 # Task Input
 task_input_frame = Frame(main_frame, padding=10)
 task_input_frame.pack(fill="x", pady=10)

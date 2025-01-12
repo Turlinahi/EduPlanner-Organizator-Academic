@@ -53,6 +53,25 @@ def update_task_status(task_id, completed=True):
     ''', (1 if completed else 0, task_id))
     conn.commit()
     conn.close()
+    
+def delete_task(task_id):
+    """Delete a task from the database."""
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM tasks WHERE id = ?', (task_id,))
+    conn.commit()
+    conn.close()
+
+def edit_task(task_id, task_name, priority, subject):
+    """Edit a task in the database."""
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute('''
+        UPDATE tasks SET task_name = ?, priority = ?, subject = ? WHERE id = ?
+    ''', (task_name, priority, subject, task_id))
+    conn.commit()
+    conn.close()
+
 
 def add_schedule(subject, day, start_time, end_time):
     conn = sqlite3.connect(DB_NAME)
